@@ -459,6 +459,7 @@ public:
 		bool roulette_open;
 		t_itemid item_reform;
 		uint64 item_enchant_index;
+		bool afk;
 	} state;
 	struct {
 		unsigned char no_weapon_damage, no_magic_damage, no_misc_damage;
@@ -788,6 +789,9 @@ public:
 	struct s_auction{
 		int32 index, amount;
 	} auction;
+
+	// AFK
+	char away_message[128];
 
 	// Mail System [Zephyrus]
 	struct s_mail {

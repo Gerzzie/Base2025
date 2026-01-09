@@ -11953,6 +11953,13 @@ void clif_parse_WisMessage(int32 fd, map_session_data* sd)
 		return;
 	}
 
+	// if player is afk
+	if (dstsd->state.afk == 1) {
+		safesnprintf(output, sizeof(output), "%s is AFK and cannot receive whispered messages.", dstsd->status.name);
+		clif_wis_message(sd, wisp_server_name, output, strlen(output) + 1, 0);
+		return;
+	}
+
 	// if player is autotrading
 	if (dstsd->state.autotrade == 1){
 		safesnprintf(output,sizeof(output),"%s is in autotrade mode and cannot receive whispered messages.", dstsd->status.name);
