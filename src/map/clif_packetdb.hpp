@@ -2038,6 +2038,11 @@
 	parseable_packet( HEADER_CZ_REQ_REPORT_USER, sizeof( struct PACKET_CZ_REQ_REPORT_USER ), clif_parse_dull, 0 );
 #endif
 
+#if (PACKETVER_MAIN_NUM >= 20230915)
+	parseable_packet(HEADER_CZ_MACRO_USER_REPORT_REQ, sizeof(struct PACKET_CZ_MACRO_USER_REPORT_REQ), clif_parse_macro_user_report, 0);
+	packet(0x0be3, sizeof(PACKET_ZC_MACRO_USER_REPORT_ACK));
+#endif
+
 #if PACKETVER_MAIN_NUM >= 20240502
 	parseable_packet( HEADER_CZ_GM_CHECKER, sizeof( struct PACKET_CZ_GM_CHECKER ), clif_parse_macro_checker, 0 );
 #endif
