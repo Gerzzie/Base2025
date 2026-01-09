@@ -3282,7 +3282,6 @@ static bool is_attack_hitting(struct Damage* wd, block_list *src, block_list *ta
 			case MS_MAGNUM:
 				hitrate += hitrate * 10 * skill_lv / 100;
 				break;
-			case KN_AUTOCOUNTER:
 			case NPC_WATERATTACK:
 			case NPC_GROUNDATTACK:
 			case NPC_FIREATTACK:
@@ -3312,7 +3311,6 @@ static bool is_attack_hitting(struct Damage* wd, block_list *src, block_list *ta
 			case NPC_DARKNESSBREATH:
 				hitrate *= 2;
 				break;
-			case KN_PIERCE:
 			case ML_PIERCE:
 				hitrate += hitrate * 5 * skill_lv / 100;
 				break;
@@ -4735,30 +4733,12 @@ static int32 battle_calc_attack_skill_ratio(struct Damage* wd, block_list *src,b
 		case MA_CHARGEARROW:
 			skillratio += 50;
 			break;
-		case KN_PIERCE:
-			skillratio += 10 * skill_lv;
-			if (sc && sc->getSCE(SC_CHARGINGPIERCE_COUNT) && sc->getSCE(SC_CHARGINGPIERCE_COUNT)->val1 >= 10)
-				skillratio *= 2;
-			break;
 		case ML_PIERCE:
 			skillratio += 10 * skill_lv;
 			break;
 		case MER_CRASH:
 			skillratio += 10 * skill_lv;
 			break;
-		case KN_SPEARSTAB:
-			skillratio += 20 * skill_lv;
-			break;
-		case KN_SPEARBOOMERANG:
-			skillratio += 50 * skill_lv;
-			break;
-#ifdef RENEWAL
-		case KN_BRANDISHSPEAR:
-			skillratio += -100 + 400 + 100 * skill_lv + sstatus->str * 3;
-			break;
-#else
-		case KN_BRANDISHSPEAR:
-#endif
 		case ML_BRANDISH:
 			{
 				int32 ratio = 100 + 20 * skill_lv;
@@ -4778,7 +4758,6 @@ static int32 battle_calc_attack_skill_ratio(struct Damage* wd, block_list *src,b
 					skillratio += ratio / 2;
 			}
 			break;
-		case KN_BOWLINGBASH:
 		case MS_BOWLINGBASH:
 			skillratio += 40 * skill_lv;
 			break;
@@ -8509,10 +8488,6 @@ struct Damage battle_calc_magic_attack(block_list *src,block_list *target,uint16
 							skillratio += 300 + skill_lv * 100;
 						else
 							skillratio += 20 * skill_lv - 20; //Monsters use old formula
-						break;
-					case PR_MAGNUS:
-						if (battle_check_undead(tstatus->race, tstatus->def_ele) || tstatus->race == RC_DEMON)
-							skillratio += 30;
 						break;
 					case BA_DISSONANCE:
 						skillratio += 10 + skill_lv * 50;
